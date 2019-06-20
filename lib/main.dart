@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hello/drawer_list.dart';
 import 'package:flutter_hello/pages/hello_listview.dart';
 import 'package:flutter_hello/pages/hello_page2.dart';
 import 'package:flutter_hello/pages/hello_page3.dart';
@@ -20,16 +21,40 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Flutter Hello",
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Flutter Hello",
+          ),
+          centerTitle: true,
+          bottom: TabBar(tabs: <Widget>[
+            Tab(text: "Tab 1", icon: Icon(Icons.star),),
+            Tab(text: "Tab 2", icon: Icon(Icons.favorite)),
+            Tab(text: "Tab 3", icon: Icon(Icons.help)),
+          ]),
         ),
-        centerTitle: true,
+        body: TabBarView(
+          children: <Widget>[
+            Builder(builder: (context) {
+              return _body(context);
+            },
+            ),
+            Container(
+              color: Colors.green,
+            ),
+            Container(
+              color: Colors.yellow,
+            )
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: () {},
+        ),
+        drawer: DrawerList(),
       ),
-      body: Builder(builder: (context) {
-        return _body(context);
-      }),
     );
   }
 
@@ -182,7 +207,6 @@ class _MyAppState extends State<MyApp> {
         timeInSecForIos: 1,
         backgroundColor: Colors.black45,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
 }
